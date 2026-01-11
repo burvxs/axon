@@ -10,6 +10,15 @@ let currentYear = new Date().getFullYear();
 let currentWeek = getWeekNumber(new Date());
 let editingGeneratorId = null;
 
+// Listen for update notifications
+ipcRenderer.on('update-available', (event, info) => {
+    showUpdateNotification(info.version);
+});
+
+ipcRenderer.on('update-downloaded', (event, info) => {
+    showRestartPrompt(info.version);
+});
+
 // Initialize App
 async function init() {
     // Load saved data
@@ -644,6 +653,75 @@ function getWeeksInMonth(year, month) {
 
 async function saveData() {
     await ipcRenderer.invoke('save-data', appData);
+}
+
+// Update Notification Functions
+function showUpdateNotification(version) {
+    // Remove any existing notifications
+    const existing = document.querySelector('.update-notification');
+    if (existing) existing.remove();
+
+    const notification = document.createElement('div');
+    notification.className = 'update-notification';
+    notification.innerHTML = `
+        <div class="update-notification-content">
+            <div class="update-icon">⚡</div>
+            <div class="update-text">
+                <div class="update-title">Update Available: v${version}</div>
+                <div class="update-subtitle">Downloading in background...</div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(notification);
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        notification.classList.add('fade-out');
+        setTimeout(() => notification.remove(), 300);
+    }, 5000);
+}
+
+function showRestartPrompt(version) {
+    // Remove any existing prompts
+    const existing = document.querySelector('.update-modal');
+    if (existing) existing.remove();
+
+    const modal = document.createElement('div');
+    modal.className = 'update-modal';
+    modal.innerHTML = `
+        <div class="update-modal-overlay"></div>
+        <div class="update-modal-content">
+            <div class="update-modal-header">
+                <div class="update-modal-icon">🎉</div>
+                <h3>Update Ready</h3>
+            </div>
+            <p class="update-modal-text">
+                Axon v${version} has been downloaded and is ready to install.
+                Would you like to restart now?
+            </p>
+            <div class="update-modal-actions">
+                <button class="btn btn-secondary" onclick="closeUpdateModal()">
+                    Later
+                </button>
+                <button class="btn btn-primary" onclick="restartAndUpdate()">
+                    Restart Now
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+function closeUpdateModal() {
+    const modal = document.querySelector('.update-modal');
+    if (modal) {
+        modal.classList.add('fade-out');
+        setTimeout(() => modal.remove(), 300);
+    }
+}
+
+async function restartAndUpdate() {
+    await ipcRenderer.invoke('install-update');
 }
 
 // Initialize app when DOM is ready

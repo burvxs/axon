@@ -87,6 +87,28 @@ function createMenu() {
       label: 'Help',
       submenu: [
         {
+          label: 'Check for Updates...',
+          click: () => {
+            if (app.isPackaged) {
+              autoUpdater.checkForUpdates();
+              dialog.showMessageBox(mainWindow, {
+                type: 'info',
+                title: 'Check for Updates',
+                message: 'Checking for updates...',
+                detail: 'You will be notified if an update is available.'
+              });
+            } else {
+              dialog.showMessageBox(mainWindow, {
+                type: 'info',
+                title: 'Development Mode',
+                message: 'Auto-updates are disabled in development mode.',
+                detail: 'Build the app to test auto-update functionality.'
+              });
+            }
+          }
+        },
+        { type: 'separator' },
+        {
           label: 'About Axon',
           click: () => {
             dialog.showMessageBox(mainWindow, {
