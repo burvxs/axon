@@ -26,6 +26,7 @@
         <!-- Navigation Tabs -->
         <nav class="tabs">
             <button class="tab active" data-view="dashboard">Dashboard</button>
+            <button class="tab" data-view="performance">Performance</button>
             <button class="tab" data-view="master">Master Tracker</button>
         </nav>
 
@@ -60,6 +61,15 @@
                 </section>
             </div>
 
+            <!-- Performance View -->
+            <div id="performanceView" class="view">
+                <div class="view-header">
+                    <h2>Performance Dashboard</h2>
+                    <button id="setGoalsBtn" class="btn btn-primary">Set Goals</button>
+                </div>
+                <div id="performanceContainer" class="performance-container"></div>
+            </div>
+
             <!-- Master Tracker View -->
             <div id="masterView" class="view">
                 <div class="view-header">
@@ -84,6 +94,47 @@
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Goals Modal -->
+    <div id="goalsModal" class="modal">
+        <div class="modal-content goals-modal-content">
+            <h3>Set Goals</h3>
+            <div class="goals-tabs">
+                <button class="goals-tab active" data-tab="team">Team Goals</button>
+                <button class="goals-tab" data-tab="individual">Individual Goals</button>
+            </div>
+            
+            <div id="teamGoalsTab" class="goals-tab-content active">
+                <form id="teamGoalsForm">
+                    <div class="form-group">
+                        <label for="teamSalesGoal">Weekly Sales Target:</label>
+                        <input type="number" id="teamSalesGoal" min="0" placeholder="e.g., 50">
+                    </div>
+                    <div class="form-group">
+                        <label for="teamLeadsGoal">Weekly Leads Target:</label>
+                        <input type="number" id="teamLeadsGoal" min="0" placeholder="e.g., 100">
+                    </div>
+                    <div class="form-group">
+                        <label for="teamAppointmentsGoal">Weekly Appointments Target:</label>
+                        <input type="number" id="teamAppointmentsGoal" min="0" placeholder="e.g., 75">
+                    </div>
+                    <div class="form-group">
+                        <label for="teamSPHGoal">Target SPH (Hours Per Sale):</label>
+                        <input type="number" id="teamSPHGoal" step="0.1" min="0" placeholder="e.g., 4.0">
+                    </div>
+                </form>
+            </div>
+
+            <div id="individualGoalsTab" class="goals-tab-content">
+                <div id="individualGoalsContainer"></div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelGoals">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveGoals">Save Goals</button>
+            </div>
         </div>
     </div>
 
