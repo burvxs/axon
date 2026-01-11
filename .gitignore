@@ -3,3 +3,8 @@ dist/
 build/*.icns
 *.log
 .DS_Store
+.idea/
+.vscode/
+*.dmg
+.cache/
+out/
