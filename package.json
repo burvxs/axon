@@ -1,6 +1,6 @@
 {
   "name": "axon",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Axon by Cortex Labs - Lead Generator Performance Tracking",
   "main": "main.js",
   "author": "Cortex Labs",
@@ -25,7 +25,9 @@
       "target": [
         "dmg"
       ],
-      "icon": "build/icon.png"
+      "icon": "build/icon.png",
+      "signIgnore": ".*",
+      "identity": null
     },
     "dmg": {
       "title": "Axon Installer"
