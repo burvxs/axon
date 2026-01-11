@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axon - Lead Generator Performance</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="brand">
+                <span class="logo-emoji">🧪</span>
+                <div class="brand-text">
+                    <h1>Axon</h1>
+                    <span class="brand-subtitle">by Cortex Labs</span>
+                </div>
+            </div>
+            <div class="header-controls">
+                <select id="yearSelector" class="year-selector"></select>
+                <button id="addGeneratorBtn" class="btn btn-primary">+ Add Lead Generator</button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <button class="tab active" data-view="dashboard">Dashboard</button>
+            <button class="tab" data-view="master">Master Tracker</button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <!-- Dashboard View -->
+            <div id="dashboardView" class="view active">
+                <!-- Current Week Section -->
+                <section class="current-week-section">
+                    <div class="view-header">
+                        <h2>Current Week</h2>
+                        <div class="week-navigation">
+                            <button id="prevWeek" class="btn btn-nav">← Previous</button>
+                            <span id="currentWeekDisplay" class="current-week"></span>
+                            <button id="nextWeek" class="btn btn-nav">Next →</button>
+                        </div>
+                    </div>
+
+                    <div id="noGeneratorsMessage" class="empty-state">
+                        <p>No lead generators added yet. Click "Add Lead Generator" to get started!</p>
+                    </div>
+
+                    <div id="weeklyDataContainer" class="weekly-data-container"></div>
+                </section>
+
+                <!-- Timeline Section -->
+                <section class="timeline-section">
+                    <div class="timeline-header">
+                        <h3>Year Timeline</h3>
+                    </div>
+                    <div id="timelineContainer" class="timeline-container"></div>
+                </section>
+            </div>
+
+            <!-- Master Tracker View -->
+            <div id="masterView" class="view">
+                <div class="view-header">
+                    <h2>Master Tracker</h2>
+                </div>
+                <div id="masterDataContainer" class="master-data-container"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Generator Modal -->
+    <div id="generatorModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Add Lead Generator</h3>
+            <form id="generatorForm">
+                <div class="form-group">
+                    <label for="generatorName">Name:</label>
+                    <input type="text" id="generatorName" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelGenerator">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
+
